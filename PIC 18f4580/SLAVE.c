@@ -15,26 +15,17 @@ void main(void)
   
     while(1)
     {
-       
-        if(SSPIF)  
-        {
-           receivedData = SSPBUF; 
+            transmitData = '0'+i++;
+            SSPBUF = transmitData;
+            while(!SSPIF);
+            receivedData = SSPBUF; 
             if(receivedData != 0Xff){
             string("received character:");
             mychar(receivedData);
             mychar('\n\r');
           
             SSPIF = 0;
-            
-        }else{
-     
-          transmitData = '0'+i;
-          SSPBUF = transmitData;
-          while(!SSPIF);
-          i++;
-          SSPIF = 0;
-      
-        }
+
       }
     }
   }
@@ -72,7 +63,6 @@ void mychar(char d){
 
         
  
-
 
 
 
