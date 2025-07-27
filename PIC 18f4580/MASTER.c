@@ -16,16 +16,8 @@ void main(void)
 
     while(1)
     {
-        for(i = 0;i<10;i++){
-        SPI_Master_Write('0'+i);  
-       __delay_ms(1000); 
-    }
-        SSPBUF = 0Xff;
-        SSPIF = 0;
-        while(!PIR1bits.SSPIF);
-        receivedData = SSPBUF;
-        for(i=0;i<10;i++){
-            SSPBUF = 0xff;
+
+            SSPBUF = '0'+i++;
             SSPIF=0;
             while(!PIR1bits.SSPIF);
             receivedData = SSPBUF;
@@ -33,9 +25,6 @@ void main(void)
             mychar(receivedData);
             mychar('\n\r');
             __delay_ms(1000); 
-            
-            
-        }
     }
 }
 
@@ -87,4 +76,3 @@ void mychar(char d){
 
         
  
-
