@@ -32,7 +32,7 @@ void main(void)
 
 void SPI_Slave_Init(void)
 {
-    TRISC = 0x19;
+    TRISC = 0x98;
 
     SSPSTAT = 0x00;    
     SSPCON1 = 0x24;    
