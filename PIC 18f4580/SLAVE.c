@@ -19,14 +19,14 @@ void main(void)
             SSPBUF = transmitData;
             while(!SSPIF);
             receivedData = SSPBUF; 
-            if(receivedData != 0Xff){
+            
             string("received character:");
             mychar(receivedData);
             mychar('\n\r');
           
             SSPIF = 0;
 
-      }
+      
     }
   }
 
