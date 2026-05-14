@@ -39,7 +39,7 @@ void SPI_Master_Init(void)
     RA5 = 1;
     SSPSTAT = 0x40; 
     SSPCON1 = 0x22;
-    PIR1bits.SSPIF = 0;
+
 }
 
 void uart_initiate(){
@@ -62,20 +62,3 @@ void mychar(char d){
    
    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
- 
