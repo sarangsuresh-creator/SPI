@@ -5,24 +5,26 @@ void string(char *s);
 void mychar(char d);
 void SPI_Slave_Init(void);
 void uart_initiate(void);
-unsigned char receivedData,transmitData;
+unsigned char receivedData;
 
 int i=0;
 void main(void)
 {
-    SPI_Slave_Init();
+    ADCON1 = 0x0f;
     uart_initiate();
+    SPI_Slave_Init();
+    
   
     while(1)
-    {
-            transmitData = '0'+i++;
-            SSPBUF = transmitData;
-            while(!SSPIF);
-            receivedData = SSPBUF; 
+    {   SSPIF = 0;
             
+        SSPBUF  = '0'+i++;
+        while(!SSPIF);
+            receivedData = SSPBUF; 
+           
             string("received character:");
             mychar(receivedData);
-            mychar('\n\r');
+           string("\r\n");
           
             SSPIF = 0;
 
@@ -32,13 +34,14 @@ void main(void)
 
 void SPI_Slave_Init(void)
 {
-    TRISC = 0x98;
-
+     TRISC|=0x18;
+     TRISA = 0Xff;
     SSPSTAT = 0x00;    
     SSPCON1 = 0x24;    
-    PIR1bits.SSPIF = 0;
+   
 }
 void uart_initiate(){
+   TRISC = 0x80;
   TXSTA = 0X24;
   RCSTA = 0X90;
   SPBRG = (((_XTAL_FREQ/baud_rate)/16)-1);
@@ -46,15 +49,16 @@ void uart_initiate(){
 
 void string(char *s){
     while(*s){
-        TXREG = *s++;
-        while(!PIR1bits.TXIF);
-        PIR1bits.TXIF = 0;
+     while(!PIR1bits.TXIF);
+     TXREG = *s++;
+        
+    
     }
 }
 void mychar(char d){
-    TXREG = d;
-    while(!PIR1bits.TXIF);
-    PIR1bits.TXIF = 0;
+      while(!PIR1bits.TXIF);
+  TXREG = d;
+    
 }
 
 
@@ -63,6 +67,5 @@ void mychar(char d){
 
         
  
-
 
 
