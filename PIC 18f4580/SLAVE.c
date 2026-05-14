@@ -26,7 +26,7 @@ void main(void)
             mychar(receivedData);
            string("\r\n");
           
-            SSPIF = 0;
+ 
 
       
     }
@@ -36,7 +36,7 @@ void SPI_Slave_Init(void)
 {
      TRISC|=0x18;
      TRISA = 0Xff;
-    SSPSTAT = 0x00;    
+    SSPSTAT = 0x40;    
     SSPCON1 = 0x24;    
    
 }
@@ -60,12 +60,4 @@ void mychar(char d){
   TXREG = d;
     
 }
-
-
-    
-
-
-        
- 
-
 
